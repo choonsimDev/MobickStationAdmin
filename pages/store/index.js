@@ -33,7 +33,7 @@ export default function Store() {
       <SideBar />
       <StoreWrapper>
         <div>Store</div>
-        <AddProducts href="/store/products">제품 등록</AddProducts>
+        <AddProducts href="/store/write-products">제품 등록</AddProducts>
       </StoreWrapper>
     </StyledWrapper>
   );

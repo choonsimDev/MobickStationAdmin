@@ -232,7 +232,7 @@ export default function Community() {
       <LeftCommunity>
         <LeftCommunityCategory>
           공지사항 게시판
-          <WriteButton href="/notice-write">글쓰기</WriteButton>
+          <WriteButton href="/notice/write">글쓰기</WriteButton>
         </LeftCommunityCategory>
 
         <LeftCommunityContentWrapper>
