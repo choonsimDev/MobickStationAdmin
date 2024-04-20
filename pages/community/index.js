@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Styled from "styled-components";
-import Link from "next/link";
 import SideBar from "@/components/sidebar";
 
 const StyledWrapper = Styled.div`
@@ -12,10 +11,24 @@ const StyledWrapper = Styled.div`
     align-items: flex-start;
 `;
 
-export default function Home() {
+const StyledBack = Styled.a`
+  top: 20px;
+  left: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #999999;
+  text-decoration: none;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+export default function Community() {
   return (
     <StyledWrapper>
       <SideBar />
+      <div>Community</div>
     </StyledWrapper>
   );
 }

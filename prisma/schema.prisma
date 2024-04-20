@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  content   String   @db.Text
+  nickname  String
+  password  String
+  createdAt DateTime @default(now())
+  postId    Int
+}
+
+model CommentAnonymous {
+  id        Int      @id @default(autoincrement())
+  content   String   @db.Text
+  nickname  String
+  password  String
+  createdAt DateTime @default(now())
+  postId    Int
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  phone     Int?      @unique
+  username  String?
+  password  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime
+  deletedAt DateTime?
+}
+
+model dbAdArea {
+  id  Int    @id @default(autoincrement())
+  src String
+  alt String
+}
+
+model dbAnonymousPost {
+  id        Int      @id @default(autoincrement())
+  title     String
+  nickname  String
+  password  String
+  content   String   @db.Text
+  thumb     Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model dbBannerCategory {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+}
+
+model dbBannerItem {
+  id                 Int    @id @default(autoincrement())
+  name               String
+  bannerDBCategoryId Int
+}
+
+model dbCommunityPost {
+  id        Int      @id @default(autoincrement())
+  title     String
+  nickname  String
+  password  String
+  content   String   @db.Text
+  thumb     Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model dbNotice {
+  id        Int      @id @default(autoincrement())
+  title     String
+  nickname  String
+  content   String   @db.Text
+  createdAt DateTime @default(now())
+}
+
+model dbStoreCategory {
+  id   Int    @id @default(autoincrement())
+  name String
+}
+
+model dbStoreName {
+  id   Int    @id @default(autoincrement())
+  name String
+}
+
+model dbStoreProduct {
+  id          Int     @id @default(autoincrement())
+  name        String
+  price       Float
+  imageUrl    String?
+  description String
+  categoryId  Int
+  storeId     Int
+}
