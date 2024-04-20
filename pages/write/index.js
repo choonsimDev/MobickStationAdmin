@@ -1,4 +1,67 @@
 import { useState, useRef } from "react";
+import styled from "styled-components"; // Add this line
+
+const WriteWrapper = styled.div`
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+`;
+
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 500px;
+`;
+
+const StyledInput = styled.input`
+  padding: 8px 16px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  width: 100%;
+`;
+
+const StyledTextArea = styled.textarea`
+  padding: 8px 16px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  height: 100px;
+  font-size: 16px;
+  resize: none; // Disables resizing
+`;
+
+const StyledButton = styled.button`
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
+
+const ImagePreview = styled.img`
+  margin-top: 20px;
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+`;
+
+const SuccessMessage = styled.p`
+  color: green;
+  font-size: 16px;
+`;
 
 export default function Write() {
   const [file, setFile] = useState(null);
@@ -17,6 +80,12 @@ export default function Write() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const title = event.target.title.value;
+    const price = parseFloat(event.target.price.value);
+    const description = event.target.description.value;
+    const categoryId = parseInt(event.target.categoryId.value); // Assuming a valid ID is entered
+    const storeId = parseInt(event.target.storeId.value); // Assuming a valid ID is entered
+
     if (file) {
       const filename = encodeURIComponent(file.name);
       const res = await fetch("/api/post/image?file=" + filename);
@@ -33,47 +102,60 @@ export default function Write() {
       });
 
       if (uploadResponse.ok) {
-        setUploadResult(data.url + "/" + filename);
-        // 이제 여기서 글 제목, 내용과 함께 이미지 URL을 전송할 수 있습니다.
-        const title = event.target.title.value;
-        const content = event.target.content.value;
         const imageURL = data.url + "/" + filename;
-
-        const postResponse = await fetch("/api/post/new", {
+        const productResponse = await fetch("/api/products/setProducts", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ title, content, imageURL }),
+          body: JSON.stringify({
+            name: title,
+            price,
+            description,
+            imageURL,
+            categoryId,
+            storeId,
+          }),
         });
 
-        if (postResponse.ok) {
-          console.log("글과 이미지가 성공적으로 등록되었습니다.");
+        if (productResponse.ok) {
+          console.log("Product successfully registered.");
         } else {
-          console.log("글 등록 실패");
+          console.log("Product registration failed.");
         }
       } else {
-        console.log("이미지 업로드 실패");
+        console.log("Image upload failed");
       }
     }
   };
 
   return (
-    <div className="p-20">
-      <h4>글작성</h4>
-      <form onSubmit={handleSubmit}>
-        <input name="title" placeholder="글제목" />
-        <input name="content" placeholder="글내용" />
-        <input
+    <WriteWrapper>
+      <h4>Add New Product</h4>
+      <StyledForm onSubmit={handleSubmit}>
+        <StyledInput name="title" placeholder="Product Name" />
+        <StyledInput name="price" type="number" placeholder="Price" />
+        <StyledTextArea name="description" placeholder="Description" />
+        <StyledInput
+          name="categoryId"
+          type="number"
+          placeholder="Category ID"
+        />
+        <StyledInput name="storeId" type="number" placeholder="Store ID" />
+        <StyledInput
           type="file"
           accept="image/*"
           ref={fileInputRef}
           onChange={handleFileChange}
         />
-        <button type="submit">전송</button>
-      </form>
-      {src && <img src={src} alt="Preview" />}
-      {uploadResult && <p>Image uploaded successfully: {uploadResult}</p>}
-    </div>
+        <StyledButton type="submit">Submit</StyledButton>
+      </StyledForm>
+      {src && <ImagePreview src={src} alt="Preview" />}
+      {uploadResult && (
+        <SuccessMessage>
+          Image uploaded successfully:{uploadResult}
+        </SuccessMessage>
+      )}
+    </WriteWrapper>
   );
 }
