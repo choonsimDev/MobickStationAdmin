@@ -23,6 +23,10 @@ const TableRow = styled.tr`
   &:nth-child(even) {
     background-color: #f2f2f2; // 짝수 행에 대한 배경색 설정
   }
+
+  &:hover {
+    background-color: #e8f4e8; // 행에 마우스를 올렸을 때의 배경색
+  }
 `;
 
 const HeaderCell = styled.th`
@@ -38,7 +42,6 @@ const Cell = styled.td`
   padding: 8px 10px;
   border: 1px solid #ddd; // 테두리 적용
 `;
-
 export default function Community() {
   const [orders, setOrders] = useState([]);
 
