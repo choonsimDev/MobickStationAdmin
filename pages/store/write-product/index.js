@@ -79,6 +79,7 @@ export default function Write() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     const title = event.target.title.value;
     const price = parseFloat(event.target.price.value);
     const description = event.target.description.value;
