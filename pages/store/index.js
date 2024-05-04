@@ -20,7 +20,7 @@ const StoreWrapper = styled.div`
   align-items: flex-start;
 `;
 
-const AddProducts = styled.a`
+const StoreContents = styled.a`
   color: blue;
   font-size: 20px;
   text-decoration: none;
@@ -33,7 +33,8 @@ export default function Store() {
       <SideBar />
       <StoreWrapper>
         <div>Store</div>
-        <AddProducts href="/write-product">제품 등록</AddProducts>
+        <StoreContents href="/store/write-product">제품 등록</StoreContents>
+        <StoreContents href="/store/orders">결제 관리</StoreContents>
       </StoreWrapper>
     </StyledWrapper>
   );
