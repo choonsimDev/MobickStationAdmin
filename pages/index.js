@@ -1,6 +1,5 @@
 import React from "react";
 import Styled from "styled-components";
-import Link from "next/link";
 import SideBar from "@/components/sidebar";
 
 const StyledWrapper = Styled.div`
