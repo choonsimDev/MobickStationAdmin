@@ -46,21 +46,21 @@ export default function Community() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    async function fetchOrders() {
-      const response = await fetch("/api/store/orders/orders", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name: "POST" }),
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      setOrders(data);
-    }
-    fetchOrders();
+    // async function fetchOrders() {
+    //   const response = await fetch("/api/store/orders/orders", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({ name: "POST" }),
+    //   });
+    //   if (!response.ok) {
+    //     throw new Error(`HTTP error! status: ${response.status}`);
+    //   }
+    //   const data = await response.json();
+    //   setOrders(data);
+    // }
+    // fetchOrders();
   }, []);
 
   return (
@@ -88,7 +88,7 @@ export default function Community() {
             <HeaderCell>Order</HeaderCell>
           </tr>
         </thead>
-        <tbody>
+        {/* <tbody>
           {orders.map((order, index) => (
             <TableRow key={index}>
               <Cell>{order.id}</Cell>
@@ -111,7 +111,7 @@ export default function Community() {
               <Cell>{order.customerInfo?.order}</Cell>
             </TableRow>
           ))}
-        </tbody>
+        </tbody> */}
       </OrderTable>
     </OrderWrapper>
   );

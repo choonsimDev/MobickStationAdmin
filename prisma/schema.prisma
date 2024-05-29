@@ -109,6 +109,7 @@ model dbStoreProduct {
   category    dbStoreCategory @relation(fields: [categoryId], references: [id])
   store       dbStoreName     @relation(fields: [storeId], references: [id])
   orders      dbOrder[]
+
   @@index([categoryId])
   @@index([storeId])
 }
