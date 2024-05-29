@@ -1,8 +1,9 @@
 import "../styles/globals.css";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import { SessionProvider } from "next-auth/react";
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps: { session, ...pageProps }, }) {
   const router = useRouter();
 
   useEffect(() => {
@@ -19,9 +20,9 @@ function MyApp({ Component, pageProps }) {
   }, [router.events]);
 
   return (
-    <div>
+    <SessionProvider session={session}>
       <Component {...pageProps} />
-    </div>
+    </SessionProvider>
   );
 }
 
