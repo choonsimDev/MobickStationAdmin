@@ -1,5 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import SideBar from '@/components/sidebar';
+
+const StyledWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+`;
 
 const OrderWrapper = styled.div`
   display: flex;
@@ -8,7 +18,8 @@ const OrderWrapper = styled.div`
   padding: 20px;
   width: 100%;
   max-width: 1200px;
-  margin: auto;
+  margin: 0;
+  margin-left: 20px;
   overflow-x: auto; // 넓은 테이블 스크롤 가능
 `;
 
@@ -64,31 +75,33 @@ export default function Community() {
   }, []);
 
   return (
-    <OrderWrapper>
-      <OrderTable>
-        <thead>
-          <tr>
-            <HeaderCell>ID</HeaderCell>
-            <HeaderCell>Order ID</HeaderCell>
-            <HeaderCell>Name</HeaderCell>
-            <HeaderCell>Status</HeaderCell>
-            <HeaderCell>Total</HeaderCell>
-            <HeaderCell>Created At</HeaderCell>
-            <HeaderCell>Customer Info</HeaderCell>
-            <HeaderCell>Customer Name</HeaderCell>
-            <HeaderCell>Phone</HeaderCell>
-            <HeaderCell>Email</HeaderCell>
-            <HeaderCell>Recipient</HeaderCell>
-            <HeaderCell>Contact1</HeaderCell>
-            <HeaderCell>Contact2</HeaderCell>
-            <HeaderCell>Address</HeaderCell>
-            <HeaderCell>Delivery Note</HeaderCell>
-            <HeaderCell>Payment Method</HeaderCell>
-            <HeaderCell>Password</HeaderCell>
-            <HeaderCell>Order</HeaderCell>
-          </tr>
-        </thead>
-        {/* <tbody>
+    <StyledWrapper>
+      <SideBar />
+      <OrderWrapper>
+        <OrderTable>
+          <thead>
+            <tr>
+              <HeaderCell>ID</HeaderCell>
+              <HeaderCell>Order ID</HeaderCell>
+              <HeaderCell>Name</HeaderCell>
+              <HeaderCell>Status</HeaderCell>
+              <HeaderCell>Total</HeaderCell>
+              <HeaderCell>Created At</HeaderCell>
+              <HeaderCell>Customer Info</HeaderCell>
+              <HeaderCell>Customer Name</HeaderCell>
+              <HeaderCell>Phone</HeaderCell>
+              <HeaderCell>Email</HeaderCell>
+              <HeaderCell>Recipient</HeaderCell>
+              <HeaderCell>Contact1</HeaderCell>
+              <HeaderCell>Contact2</HeaderCell>
+              <HeaderCell>Address</HeaderCell>
+              <HeaderCell>Delivery Note</HeaderCell>
+              <HeaderCell>Payment Method</HeaderCell>
+              <HeaderCell>Password</HeaderCell>
+              <HeaderCell>Order</HeaderCell>
+            </tr>
+          </thead>
+          {/* <tbody>
           {orders.map((order, index) => (
             <TableRow key={index}>
               <Cell>{order.id}</Cell>
@@ -112,7 +125,8 @@ export default function Community() {
             </TableRow>
           ))}
         </tbody> */}
-      </OrderTable>
-    </OrderWrapper>
+        </OrderTable>
+      </OrderWrapper>
+    </StyledWrapper>
   );
 }

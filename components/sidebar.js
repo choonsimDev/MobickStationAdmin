@@ -56,8 +56,10 @@ export default function SideBar() {
       <Link href="/notice">
         <SidebarItem>공지사항</SidebarItem>
       </Link>
-      <SidebarItem onClick={handleToggleStoreMenu}>
-        스토어
+      <SidebarItem onClick={handleToggleStoreMenu} >
+        <Link href="/store">
+          스토어
+        </Link>
         <ToggleIcon open={storeMenuOpen}>^</ToggleIcon>
       </SidebarItem>
       {storeMenuOpen && (

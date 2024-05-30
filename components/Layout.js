@@ -2,6 +2,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import Nav from "@/components/Nav";
 import { useState } from "react";
 import styled from 'styled-components';
+import SideBar from "./sidebar";
 
 const ScreenContainer = styled.div`
   min-height: screen;
@@ -43,36 +44,37 @@ const LoginButton = styled.button`
 `;
 
 export default function Layout({ children }) {
-    const [showNav, setShowNav] = useState(false);
-    const { data: session } = useSession();
+  const [showNav, setShowNav] = useState(false);
+  const { data: session } = useSession();
 
-    if (session) {
-        return (
-            <div>
-                <MenuButton onClick={() => setShowNav(true)}>
-                    {/* SVG content remains unchanged */}
-                    Menu
-                </MenuButton>
+  if (session) {
+    return (
+      <div>
+        <MenuButton onClick={() => setShowNav(true)}>
+          {/* SVG content remains unchanged */}
+          Menu
+        </MenuButton>
 
-                <div>
-                    <Nav show={showNav} />
-                    <ContentContainer>{children}</ContentContainer>
-                    <SignOutButton onClick={() => signOut()}>
-                        {/* SVG content remains unchanged */}
-                        Sign out
-                    </SignOutButton>
-                </div >
-            </div >
-        );
-    } else {
-        return (
-            <ScreenContainer>
-                <div className="text-center w-full">
-                    <LoginButton onClick={() => signIn("google")}>
-                        login with google
-                    </LoginButton>
-                </div>
-            </ScreenContainer>
-        );
-    }
+        <div>
+          {/* <Nav show={showNav} /> */}
+          <SideBar />
+          <ContentContainer>{children}</ContentContainer>
+          <SignOutButton onClick={() => signOut()}>
+            {/* SVG content remains unchanged */}
+            Sign out
+          </SignOutButton>
+        </div >
+      </div >
+    );
+  } else {
+    return (
+      <ScreenContainer>
+        <div className="text-center w-full">
+          <LoginButton onClick={() => signIn("google")}>
+            login with google
+          </LoginButton>
+        </div>
+      </ScreenContainer>
+    );
+  }
 }

@@ -49,33 +49,33 @@ const NavigationContainer = styled.nav`
 `;
 
 export default function Nav({ show }) {
-    const router = useRouter();
-    const { pathname } = router;
+  const router = useRouter();
+  const { pathname } = router;
 
-    const isActive = (path) => pathname.includes(path);
+  const isActive = (path) => pathname.includes(path);
 
-    return (
-        <Sidebar show={show}>
-            <StyledLink href="/">
-                <Icon viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    {/* SVG path remains the same */}
-                </Icon>
-                <span>EcommerceAdmin</span>
-            </StyledLink>
-            <NavigationContainer>
-                {['/', '/orders', '/community', '/notice', '/store'].map((path, index) => (
-                    <StyledLink
-                        key={index}
-                        href={path}
-                        className={isActive(path) ? 'active' : ''}
-                    >
-                        <Icon viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            {/* SVG path remains the same */}
-                        </Icon>
-                        {path.slice(1) || 'Dashboard'}
-                    </StyledLink>
-                ))}
-            </NavigationContainer>
-        </Sidebar>
-    );
+  return (
+    <Sidebar show={show}>
+      <StyledLink href="/">
+        <Icon viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          {/* SVG path remains the same */}
+        </Icon>
+        <span>EcommerceAdmin</span>
+      </StyledLink>
+      <NavigationContainer>
+        {['/', '/store/orders', '/community', '/notice', '/store'].map((path, index) => (
+          <StyledLink
+            key={index}
+            href={path}
+            className={isActive(path) ? 'active' : ''}
+          >
+            <Icon viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              {/* SVG path remains the same */}
+            </Icon>
+            {path.slice(1) || 'Dashboard'}
+          </StyledLink>
+        ))}
+      </NavigationContainer>
+    </Sidebar>
+  );
 }
