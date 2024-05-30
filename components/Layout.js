@@ -48,20 +48,21 @@ export default function Layout({ children }) {
 
     if (session) {
         return (
-            <div className="min-h-screen">
+            <div>
                 <MenuButton onClick={() => setShowNav(true)}>
                     {/* SVG content remains unchanged */}
+                    Menu
                 </MenuButton>
 
-                <div className="flex">
+                <div>
                     <Nav show={showNav} />
                     <ContentContainer>{children}</ContentContainer>
                     <SignOutButton onClick={() => signOut()}>
                         {/* SVG content remains unchanged */}
                         Sign out
                     </SignOutButton>
-                </div>
-            </div>
+                </div >
+            </div >
         );
     } else {
         return (

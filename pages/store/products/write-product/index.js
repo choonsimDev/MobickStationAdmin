@@ -1,6 +1,16 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components"; // Add this line
+import SideBar from "@/components/sidebar";
 
+
+const StyledWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+`;
 const WriteWrapper = styled.div`
   padding: 20px;
   display: flex;
@@ -9,6 +19,8 @@ const WriteWrapper = styled.div`
   background: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 90%; // 우측 화면이 90%를 차지하도록 수정
+  overflow: auto; // 내용이 많을 경우 스크롤 가능하도록 설정
 `;
 
 const StyledForm = styled.form`
@@ -150,31 +162,34 @@ export default function Write() {
   }
 
   return (
-    <WriteWrapper>
-      <h4>Add New Product</h4>
-      <StyledForm onSubmit={handleSubmit}>
-        <StyledInput name="title" placeholder="Product Name" />
-        <StyledInput name="price" type="number" placeholder="Price" />
-        <StyledTextArea name="description" placeholder="Description" />
-        <StyledInput
-          name="categoryId"
-          type="number"
-          placeholder="Category ID"
-        />
-        <StyledInput name="storeId" type="number" placeholder="Store ID" />
-        <StyledInput
-          type="file"
-          accept="image/*"
-          multiple
-          ref={fileInputRef}
-          onChange={handleFileChange}
-        />
-        <StyledButton type="submit">Submit</StyledButton>
-      </StyledForm>
-      {srcs.map((src, index) => (
-        <ImagePreview key={index} src={src} alt="Preview" />
-      ))}
-      {uploadResult && <SuccessMessage>{uploadResult}</SuccessMessage>}
-    </WriteWrapper>
+    <StyledWrapper>
+      <SideBar />
+      <WriteWrapper>
+        <h4>Add New Product</h4>
+        <StyledForm onSubmit={handleSubmit}>
+          <StyledInput name="title" placeholder="Product Name" />
+          <StyledInput name="price" type="number" placeholder="Price" />
+          <StyledTextArea name="description" placeholder="Description" />
+          <StyledInput
+            name="categoryId"
+            type="number"
+            placeholder="Category ID"
+          />
+          <StyledInput name="storeId" type="number" placeholder="Store ID" />
+          <StyledInput
+            type="file"
+            accept="image/*"
+            multiple
+            ref={fileInputRef}
+            onChange={handleFileChange}
+          />
+          <StyledButton type="submit">Submit</StyledButton>
+        </StyledForm>
+        {srcs.map((src, index) => (
+          <ImagePreview key={index} src={src} alt="Preview" />
+        ))}
+        {uploadResult && <SuccessMessage>{uploadResult}</SuccessMessage>}
+      </WriteWrapper>
+    </StyledWrapper>
   );
 }

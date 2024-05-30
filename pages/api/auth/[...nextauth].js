@@ -12,6 +12,7 @@ const adminEmails = [
     "zizimoos@gmail.com",
     "dragoncyr46@gmail.com",
     "rsnchi2@gmail.com",
+    "choonsim.dev@gmail.com",
 ];
 export const authOptions = {
     secret: process.env.NEXTAUTH_SECRET,

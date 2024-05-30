@@ -63,7 +63,7 @@ export default function Nav({ show }) {
                 <span>EcommerceAdmin</span>
             </StyledLink>
             <NavigationContainer>
-                {['/', '/orders', '/products', '/categories', '/settings'].map((path, index) => (
+                {['/', '/orders', '/community', '/notice', '/store'].map((path, index) => (
                     <StyledLink
                         key={index}
                         href={path}
