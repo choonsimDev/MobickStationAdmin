@@ -56,12 +56,7 @@ const StyledButton = styled.button`
     background-color: #0056b3;
   }
 `;
-const ImagePreview = styled.img`
-  margin-top: 20px;
-  max-width: 100%;
-  height: auto;
-  border-radius: 4px;
-`;
+
 const SuccessMessage = styled.p`
   color: green;
   font-size: 16px;
@@ -72,6 +67,24 @@ const ProductImageUpload = styled.div`
   display: flex;
   flex-direction: row;
 `;
+const ImagePreview = styled.img`
+  margin-top: 20px;
+  width: 40%;
+  height: auto;
+  border-radius: 4px;
+`;
+const ChooseFileArea = styled.div`
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+`;
+const ChooseFileInput = styled.input`
+ 
+  padding: 8px 16px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+`;
 const ProductNameDescription = styled.div`
 width: 40%;
 display: flex;
@@ -81,6 +94,7 @@ const CategorySelect = styled.div`
 width: 20%;
 height: 100px;
 `;
+
 const ProductPrices = styled.div`
   display: flex;
   flex-direction: row;
@@ -95,6 +109,7 @@ const InventoryManagement = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
 
 export default function Write() {
   const [files, setFiles] = useState([]); // 파일 배열 상태 추가
@@ -114,13 +129,19 @@ export default function Write() {
     event.preventDefault();
 
     const title = event.target.title.value;
-    const price = parseFloat(event.target.price.value);
+    const price = event.target.price.value;
     const description = event.target.description.value;
     const categoryId = parseInt(event.target.categoryId.value);
     const storeId = parseInt(event.target.storeId.value);
 
     if (files.length > 0) {
       const uploadedUrl = await uploadFiles(files); // 다중 파일 업로드 함수 호출
+
+      console.log("Uploaded URLs:", uploadedUrl);
+      console.log("Category ID:", categoryId);
+      console.log("Store ID:", storeId);
+      console.log("Product Name:", title);
+      console.log("Price:", price);
 
       const productResponse = await fetch("/api/products/setProducts", {
         method: "POST",
@@ -146,6 +167,8 @@ export default function Write() {
       }
     }
   };
+
+  // dbStoreProduct에 데이타 추가 할 것
 
   async function uploadFiles(files) {
     const urls = [];
@@ -189,13 +212,18 @@ export default function Write() {
         <h4>Add New Product</h4>
         <StyledForm onSubmit={handleSubmit}>
           <ProductImageUpload>
-            <StyledInput
-              type="file"
-              accept="image/*"
-              multiple
-              ref={fileInputRef}
-              onChange={handleFileChange}
-            />
+            <ChooseFileArea>
+              {srcs.map((src, index) => (
+                <ImagePreview key={index} src={src} alt="Preview" />
+              ))}
+              <ChooseFileInput
+                type="file"
+                accept="image/*"
+                multiple
+                ref={fileInputRef}
+                onChange={handleFileChange}
+              />
+            </ChooseFileArea>
             <ProductNameDescription>
               <StyledInput name="title" placeholder="Product Name" />
               <StyledTextArea name="description" placeholder="Description" />
@@ -210,8 +238,14 @@ export default function Write() {
           </ProductImageUpload>
           <StyledTextArea name="description" placeholder="Description" />
           <ProductPrices>
-            <StyledInput name="saleprice" type="number" placeholder="Price" />
-            <StyledInput name="discountprice" type="number" placeholder="discountPrice" />
+            <div>
+              <div>판매가격</div>
+              <StyledInput name="price" type="number" placeholder="Price" />
+            </div>
+            <div>
+              <div>정가(할인)</div>
+              <StyledInput name="discountprice" type="number" placeholder="discountPrice" />
+            </div>
           </ProductPrices>
           <DeliveryInfo>
             <div>배송 및 택배</div>
@@ -230,9 +264,7 @@ export default function Write() {
           <StyledInput name="storeId" type="number" placeholder="Store ID" />
           <StyledButton type="submit">Submit</StyledButton>
         </StyledForm>
-        {srcs.map((src, index) => (
-          <ImagePreview key={index} src={src} alt="Preview" />
-        ))}
+
         {uploadResult && <SuccessMessage>{uploadResult}</SuccessMessage>}
       </WriteWrapper>
     </StyledWrapper >
