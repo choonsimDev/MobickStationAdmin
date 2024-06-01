@@ -4,14 +4,26 @@ const prisma = new PrismaClient();
 
 export default async function handle(req, res) {
   if (req.method === "POST") {
-    const { name, price, description, imageUrl, categoryId, storeId } =
+    const { name, price, discountPrice, description, detailDescription, imageUrl, categoryId, storeId } =
       req.body;
+
+    console.log("Category ID:", categoryId);
+    console.log("Store ID:", storeId);
+    console.log("Product Name:", name);
+    console.log("Price:", price);
+    console.log("Description:", description);
+    console.log("Detail Description:", detailDescription);
+    console.log("Discount Price:", discountPrice);
+    console.log("Image URL:", imageUrl);
+
     try {
       const product = await prisma.dbStoreProduct.create({
         data: {
           name,
           price,
+          discountPrice,
           description,
+          detailDescription,
           imageUrl: imageUrl.join(","), // 이미지 URL 배열을 콤마로 구분된 문자열로 저장
           categoryId,
           storeId,

@@ -98,17 +98,19 @@ model dbStoreCategory {
 }
 
 model dbStoreProduct {
-  id          Int             @id @default(autoincrement())
-  name        String
-  price       String
-  imageUrl    String?
-  description String
-  categoryId  Int
-  storeId     Int
-  views       Int             @default(0)
-  category    dbStoreCategory @relation(fields: [categoryId], references: [id])
-  store       dbStoreName     @relation(fields: [storeId], references: [id])
-  orders      dbOrder[]
+  id                Int             @id @default(autoincrement())
+  name              String
+  price             String
+  discountPrice     String?
+  imageUrl          String?
+  description       String?
+  detailDescription String?         @db.Text
+  categoryId        Int
+  storeId           Int
+  views             Int             @default(0)
+  category          dbStoreCategory @relation(fields: [categoryId], references: [id])
+  store             dbStoreName     @relation(fields: [storeId], references: [id])
+  orders            dbOrder[]
 
   @@index([categoryId])
   @@index([storeId])

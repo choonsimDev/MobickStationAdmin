@@ -68,8 +68,8 @@ const ProductImageUpload = styled.div`
   flex-direction: row;
 `;
 const ImagePreview = styled.img`
-  margin-top: 20px;
-  width: 40%;
+  
+  width: 100%;
   height: auto;
   border-radius: 4px;
 `;
@@ -130,7 +130,9 @@ export default function Write() {
 
     const title = event.target.title.value;
     const price = event.target.price.value;
+    const discountPrice = event.target.discountprice.value;
     const description = event.target.description.value;
+    const detailDescription = event.target.DetailDescription.value;
     const categoryId = parseInt(event.target.categoryId.value);
     const storeId = parseInt(event.target.storeId.value);
 
@@ -142,6 +144,9 @@ export default function Write() {
       console.log("Store ID:", storeId);
       console.log("Product Name:", title);
       console.log("Price:", price);
+      console.log("Description:", description);
+      console.log("Detail Description:", detailDescription);
+      console.log("Discount Price:", discountPrice);
 
       const productResponse = await fetch("/api/products/setProducts", {
         method: "POST",
@@ -151,7 +156,9 @@ export default function Write() {
         body: JSON.stringify({
           name: title,
           price,
+          discountPrice,
           description,
+          detailDescription,
           imageUrl: uploadedUrl, // 업로드된 이미지 URL 배열
           categoryId,
           storeId,
@@ -236,7 +243,7 @@ export default function Write() {
               </select>
             </CategorySelect>
           </ProductImageUpload>
-          <StyledTextArea name="description" placeholder="Description" />
+          <StyledTextArea name="DetailDescription" placeholder="DetailDescription" />
           <ProductPrices>
             <div>
               <div>판매가격</div>
@@ -249,7 +256,7 @@ export default function Write() {
           </ProductPrices>
           <DeliveryInfo>
             <div>배송 및 택배</div>
-            <StyledInput name="discountprice" type="number" placeholder="배송 및 택배" />
+            <StyledInput name="deliveryprice" type="number" placeholder="배송 및 택배" />
             <StyledTextArea name="deliverydescription" placeholder="deliveryDescription" />
           </DeliveryInfo>
           <InventoryManagement>
