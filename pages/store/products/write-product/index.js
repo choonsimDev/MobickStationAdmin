@@ -1,7 +1,6 @@
 import React, { useState, useRef } from "react";
-import styled from "styled-components"; // Add this line
+import styled from "styled-components";
 import SideBar from "@/components/sidebar";
-
 
 const StyledWrapper = styled.div`
   width: 100%;
@@ -12,6 +11,7 @@ const StyledWrapper = styled.div`
   align-items: flex-start;
 `;
 const WriteWrapper = styled.div`
+  width: 100%; // 우측 화면이 90%를 차지하도록 수정
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -19,26 +19,21 @@ const WriteWrapper = styled.div`
   background: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 90%; // 우측 화면이 90%를 차지하도록 수정
   overflow: auto; // 내용이 많을 경우 스크롤 가능하도록 설정
 `;
-
 const StyledForm = styled.form`
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  width: 100%;
-  max-width: 500px;
 `;
-
 const StyledInput = styled.input`
+  width: 40%;
   padding: 8px 16px;
   border: 2px solid #ccc;
   border-radius: 4px;
   font-size: 16px;
-  width: 100%;
 `;
-
 const StyledTextArea = styled.textarea`
   padding: 8px 16px;
   border: 2px solid #ccc;
@@ -47,7 +42,6 @@ const StyledTextArea = styled.textarea`
   font-size: 16px;
   resize: none; // Disables resizing
 `;
-
 const StyledButton = styled.button`
   padding: 10px 20px;
   background-color: #007bff;
@@ -62,17 +56,44 @@ const StyledButton = styled.button`
     background-color: #0056b3;
   }
 `;
-
 const ImagePreview = styled.img`
   margin-top: 20px;
   max-width: 100%;
   height: auto;
   border-radius: 4px;
 `;
-
 const SuccessMessage = styled.p`
   color: green;
   font-size: 16px;
+`;
+
+const ProductImageUpload = styled.div`
+  width: 100%;  
+  display: flex;
+  flex-direction: row;
+`;
+const ProductNameDescription = styled.div`
+width: 40%;
+display: flex;
+flex-direction: column;
+`;
+const CategorySelect = styled.div`
+width: 20%;
+height: 100px;
+`;
+const ProductPrices = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+const DeliveryInfo = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+const InventoryManagement = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 export default function Write() {
@@ -167,22 +188,46 @@ export default function Write() {
       <WriteWrapper>
         <h4>Add New Product</h4>
         <StyledForm onSubmit={handleSubmit}>
-          <StyledInput name="title" placeholder="Product Name" />
-          <StyledInput name="price" type="number" placeholder="Price" />
+          <ProductImageUpload>
+            <StyledInput
+              type="file"
+              accept="image/*"
+              multiple
+              ref={fileInputRef}
+              onChange={handleFileChange}
+            />
+            <ProductNameDescription>
+              <StyledInput name="title" placeholder="Product Name" />
+              <StyledTextArea name="description" placeholder="Description" />
+            </ProductNameDescription>
+            <CategorySelect>
+              <select name="category">
+                <option value="1">Category 1</option>
+                <option value="2">Category 2</option>
+                <option value="3">Category 3</option>
+              </select>
+            </CategorySelect>
+          </ProductImageUpload>
           <StyledTextArea name="description" placeholder="Description" />
+          <ProductPrices>
+            <StyledInput name="saleprice" type="number" placeholder="Price" />
+            <StyledInput name="discountprice" type="number" placeholder="discountPrice" />
+          </ProductPrices>
+          <DeliveryInfo>
+            <div>배송 및 택배</div>
+            <StyledInput name="discountprice" type="number" placeholder="배송 및 택배" />
+            <StyledTextArea name="deliverydescription" placeholder="deliveryDescription" />
+          </DeliveryInfo>
+          <InventoryManagement>
+            <div>재고관리</div>
+            <StyledInput name="inventory" type="number" placeholder="inventory" />
+          </InventoryManagement>
           <StyledInput
             name="categoryId"
             type="number"
             placeholder="Category ID"
           />
           <StyledInput name="storeId" type="number" placeholder="Store ID" />
-          <StyledInput
-            type="file"
-            accept="image/*"
-            multiple
-            ref={fileInputRef}
-            onChange={handleFileChange}
-          />
           <StyledButton type="submit">Submit</StyledButton>
         </StyledForm>
         {srcs.map((src, index) => (
@@ -190,6 +235,6 @@ export default function Write() {
         ))}
         {uploadResult && <SuccessMessage>{uploadResult}</SuccessMessage>}
       </WriteWrapper>
-    </StyledWrapper>
+    </StyledWrapper >
   );
 }

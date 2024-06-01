@@ -7,7 +7,6 @@ const WelcomeText = styled.h2`
   display: flex;
   justify-content: between;
 `;
-
 const UserInfo = styled.div`
   background-color: #E5E7EB; /* Using Tailwind's gray-300 */
   color: black;
@@ -16,12 +15,10 @@ const UserInfo = styled.div`
   border-radius: 0.375rem; /* Rounded-lg in Tailwind */
   overflow: hidden;
 `;
-
 const UserAvatar = styled.img`
   width: 2rem; /* 8 width in Tailwind */
   height: 2rem; /* 8 height in Tailwind */
 `;
-
 const UserName = styled.span`
   padding: 0.25rem 0.5rem; /* Py-1 Px-2 in Tailwind */
 `;
