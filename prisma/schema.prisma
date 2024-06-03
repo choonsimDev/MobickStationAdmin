@@ -105,6 +105,7 @@ model dbStoreProduct {
   imageUrl          String?
   description       String?
   detailDescription String?         @db.Text
+  inventory         String?
   categoryId        Int
   storeId           Int
   views             Int             @default(0)

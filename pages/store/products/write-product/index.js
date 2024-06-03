@@ -133,6 +133,7 @@ export default function Write() {
     const discountPrice = event.target.discountprice.value;
     const description = event.target.description.value;
     const detailDescription = event.target.DetailDescription.value;
+    const inventory = event.target.inventory.value;
     const categoryId = parseInt(event.target.categoryId.value);
     const storeId = parseInt(event.target.storeId.value);
 
@@ -147,6 +148,7 @@ export default function Write() {
       console.log("Description:", description);
       console.log("Detail Description:", detailDescription);
       console.log("Discount Price:", discountPrice);
+      console.log("Inventory:", inventory);
 
       const productResponse = await fetch("/api/products/setProducts", {
         method: "POST",
@@ -159,6 +161,7 @@ export default function Write() {
           discountPrice,
           description,
           detailDescription,
+          inventory,
           imageUrl: uploadedUrl, // 업로드된 이미지 URL 배열
           categoryId,
           storeId,
@@ -261,7 +264,7 @@ export default function Write() {
           </DeliveryInfo>
           <InventoryManagement>
             <div>재고관리</div>
-            <StyledInput name="inventory" type="number" placeholder="inventory" />
+            <StyledInput name="inventory" type="number" placeholder="재고수량" />
           </InventoryManagement>
           <StyledInput
             name="categoryId"
