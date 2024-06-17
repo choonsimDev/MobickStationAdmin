@@ -148,3 +148,21 @@ model dbCustomerInfo {
 
   @@index([orderId])
 }
+
+model dbYoutube {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String   @db.Text
+  thumb     Int      @default(0)
+  createdAt DateTime @default(now())
+  views     Int      @default(0)
+}
+
+model dbNews {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String   @db.Text
+  thumb     Int      @default(0)
+  createdAt DateTime @default(now())
+  views     Int      @default(0)
+}

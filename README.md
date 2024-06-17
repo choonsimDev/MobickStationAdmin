@@ -24,3 +24,9 @@ First, run the development server:
 > npx prisma generate
 > npx prisma db push
 ```
+
+todo list
+
+1. font
+2. dashboard list check
+3.
